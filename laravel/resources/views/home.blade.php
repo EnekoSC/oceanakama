@@ -2,17 +2,19 @@
     <x-slot:title>{{ __('Inicio') }}</x-slot:title>
 
     {{-- Hero --}}
-    <section class="relative bg-cyan-800 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+    <section class="relative bg-cyan-900 text-white overflow-hidden">
+        <img src="{{ asset('images/portada.jpg') }}" alt="{{ __('Buceo') }}"
+             class="absolute inset-0 w-full h-full object-cover opacity-40">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-40">
             <div class="max-w-2xl">
-                <h1 class="text-4xl lg:text-5xl font-bold leading-tight mb-6">
+                <h1 class="text-4xl lg:text-5xl font-bold leading-tight mb-6 drop-shadow-lg">
                     {{ __('Descubre el mundo submarino') }}
                 </h1>
-                <p class="text-lg text-cyan-100 mb-8">
+                <p class="text-lg text-cyan-100 mb-8 drop-shadow">
                     {{ __('Cursos de buceo certificados SSI para todos los niveles. Aprende con profesionales y vive la aventura del mar.') }}
                 </p>
                 <a href="{{ route('cursos.index') }}"
-                   class="inline-flex items-center px-6 py-3 bg-white text-cyan-800 font-semibold rounded-lg hover:bg-cyan-50 transition">
+                   class="inline-flex items-center px-6 py-3 bg-white text-cyan-800 font-semibold rounded-lg hover:bg-cyan-50 transition shadow-lg">
                     {{ __('Ver cursos') }}
                     <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>

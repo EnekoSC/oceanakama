@@ -122,9 +122,9 @@
                     <div>
                         <h4 class="text-white font-semibold mb-3">{{ __('Legal') }}</h4>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="#" class="hover:text-white transition">{{ __('Política de privacidad') }}</a></li>
-                            <li><a href="#" class="hover:text-white transition">{{ __('Términos y condiciones') }}</a></li>
-                            <li><a href="#" class="hover:text-white transition">{{ __('Cookies') }}</a></li>
+                            <li><a href="{{ route('privacidad') }}" class="hover:text-white transition">{{ __('Política de privacidad') }}</a></li>
+                            <li><a href="{{ route('terminos') }}" class="hover:text-white transition">{{ __('Términos y condiciones') }}</a></li>
+                            <li><a href="{{ route('cookies') }}" class="hover:text-white transition">{{ __('Cookies') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -133,6 +133,35 @@
                 </div>
             </div>
         </footer>
+
+        {{-- Banner de cookies --}}
+        <div x-data="{ show: !document.cookie.includes('cookie_consent=') }"
+             x-show="show"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="translate-y-full opacity-0"
+             x-transition:enter-end="translate-y-0 opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="translate-y-0 opacity-100"
+             x-transition:leave-end="translate-y-full opacity-0"
+             class="fixed bottom-0 inset-x-0 z-50 p-4"
+             style="display: none;">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <p class="text-sm text-gray-600 flex-1">
+                    {{ __('Utilizamos cookies técnicas necesarias para el funcionamiento del sitio.') }}
+                    <a href="{{ route('cookies') }}" class="text-cyan-700 underline hover:text-cyan-800">{{ __('Más información') }}</a>
+                </p>
+                <div class="flex gap-2 flex-shrink-0">
+                    <button @click="document.cookie = 'cookie_consent=accepted; path=/; max-age=31536000; SameSite=Lax'; show = false"
+                            class="px-4 py-2 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 transition">
+                        {{ __('Aceptar') }}
+                    </button>
+                    <button @click="document.cookie = 'cookie_consent=rejected; path=/; max-age=31536000; SameSite=Lax'; show = false"
+                            class="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition">
+                        {{ __('Rechazar') }}
+                    </button>
+                </div>
+            </div>
+        </div>
 
         {{-- Botón WhatsApp --}}
         <a href="https://wa.me/34600000000" target="_blank" rel="noopener"

@@ -4,30 +4,48 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 class="text-3xl font-bold text-gray-900 mb-8">{{ __('Contacto') }}</h1>
 
+        @if (session('success'))
+            <div class="mb-6 rounded-lg bg-green-50 border border-green-200 p-4 text-green-800">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="bg-white rounded-xl shadow-sm p-8">
-            <form method="POST" action="#" class="space-y-6">
+            <form method="POST" action="{{ route('contacto.send') }}" class="space-y-6">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Nombre') }}</label>
-                        <input type="text" name="nombre" id="nombre" required
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" required
+                               class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500 @error('nombre') border-red-500 @enderror">
+                        @error('nombre')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Email') }}</label>
-                        <input type="email" name="email" id="email" required
-                               class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" required
+                               class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500 @error('email') border-red-500 @enderror">
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div>
                     <label for="asunto" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Asunto') }}</label>
-                    <input type="text" name="asunto" id="asunto" required
-                           class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
+                    <input type="text" name="asunto" id="asunto" value="{{ old('asunto') }}" required
+                           class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500 @error('asunto') border-red-500 @enderror">
+                    @error('asunto')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Mensaje') }}</label>
                     <textarea name="mensaje" id="mensaje" rows="5" required
-                              class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500"></textarea>
+                              class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500 @error('mensaje') border-red-500 @enderror">{{ old('mensaje') }}</textarea>
+                    @error('mensaje')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <button type="submit"
                         class="px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition">
