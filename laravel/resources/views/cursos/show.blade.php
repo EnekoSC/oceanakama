@@ -113,10 +113,10 @@
                                 {{ __('Reservar plaza') }}
                             </a>
                         @else
-                            <a href="{{ route('login') }}"
-                               class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition">
+                            <button @click="$dispatch('open-login-modal')"
+                               class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition cursor-pointer">
                                 {{ __('Inicia sesión para reservar') }}
-                            </a>
+                            </button>
                         @endauth
                     @elseif(!$curso->tieneDisponibilidad())
                         <div class="text-center py-3 bg-gray-100 rounded-lg text-gray-500 font-medium">
