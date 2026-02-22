@@ -23,6 +23,14 @@
             <div class="w-full sm:max-w-md bg-white rounded-xl shadow-lg p-8">
                 {{ $slot }}
             </div>
+
+            <div class="mt-6 flex items-center space-x-3">
+                <a href="{{ url(request()->getPathInfo() . '?' . http_build_query(array_merge(request()->query(), ['lang' => 'es']))) }}"
+                   class="text-sm {{ app()->getLocale() === 'es' ? 'text-cyan-700 font-medium' : 'text-gray-500 hover:text-cyan-700' }} transition">ES</a>
+                <span class="w-px h-4 bg-gray-300"></span>
+                <a href="{{ url(request()->getPathInfo() . '?' . http_build_query(array_merge(request()->query(), ['lang' => 'en']))) }}"
+                   class="text-sm {{ app()->getLocale() === 'en' ? 'text-cyan-700 font-medium' : 'text-gray-500 hover:text-cyan-700' }} transition">EN</a>
+            </div>
         </div>
     </body>
 </html>

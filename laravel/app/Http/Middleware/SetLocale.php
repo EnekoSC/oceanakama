@@ -15,6 +15,11 @@ class SetLocale
         if (in_array($locale, ['es', 'en'])) {
             app()->setLocale($locale);
             session(['locale' => $locale]);
+        } elseif ($request->query('lang') && in_array($request->query('lang'), ['es', 'en'])) {
+            app()->setLocale($request->query('lang'));
+            session(['locale' => $request->query('lang')]);
+        } elseif (session('locale') && in_array(session('locale'), ['es', 'en'])) {
+            app()->setLocale(session('locale'));
         }
 
         return $next($request);
