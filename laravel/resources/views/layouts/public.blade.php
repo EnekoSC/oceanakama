@@ -54,9 +54,9 @@
                             <button @click="$dispatch('open-login-modal')" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition cursor-pointer">
                                 {{ __('Entrar') }}
                             </button>
-                            <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 transition">
+                            <button @click="$dispatch('open-register-modal')" class="inline-flex items-center px-4 py-2 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 transition cursor-pointer">
                                 {{ __('Registro') }}
-                            </a>
+                            </button>
                         @endauth
 
                         <span class="w-px h-5 bg-gray-200"></span>
@@ -98,7 +98,7 @@
                             <a href="{{ lroute('dashboard') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Mi cuenta') }}</a>
                         @else
                             <button @click="open = false; $dispatch('open-login-modal')" class="block text-sm font-medium text-gray-700 py-1 text-left cursor-pointer">{{ __('Entrar') }}</button>
-                            <a href="{{ route('register') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Registro') }}</a>
+                            <button @click="open = false; $dispatch('open-register-modal')" class="block text-sm font-medium text-cyan-700 py-1 text-left cursor-pointer">{{ __('Registro') }}</button>
                         @endauth
                     </div>
                     <div class="flex space-x-3 pt-2 border-t">
@@ -173,26 +173,28 @@
             </div>
         </div>
 
-        {{-- Modal Login --}}
+        {{-- Modales Auth --}}
         @guest
-        <div x-data="{ showLogin: {{ $errors->has('email') || $errors->has('password') ? 'true' : 'false' }} }"
-             @open-login-modal.window="showLogin = true"
-             @keydown.escape.window="showLogin = false">
+        <div x-data="{ modal: '{{ $errors->has('name') || $errors->has('password_confirmation') ? 'register' : ($errors->any() ? 'login' : '') }}' }"
+             @open-login-modal.window="modal = 'login'"
+             @open-register-modal.window="modal = 'register'"
+             @keydown.escape.window="modal = ''">
 
             {{-- Overlay --}}
-            <div x-show="showLogin"
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0"
-                 x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100"
-                 x-transition:leave-end="opacity-0"
-                 @click="showLogin = false"
-                 class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
-                 style="display: none;"></div>
+            <template x-if="modal !== ''">
+                <div x-show="modal !== ''"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     @click="modal = ''"
+                     class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"></div>
+            </template>
 
-            {{-- Panel --}}
-            <div x-show="showLogin"
+            {{-- Modal Login --}}
+            <div x-show="modal === 'login'"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95 translate-y-4"
                  x-transition:enter-end="opacity-100 scale-100 translate-y-0"
@@ -202,23 +204,20 @@
                  class="fixed inset-0 z-[70] flex items-center justify-center p-4"
                  style="display: none;">
                 <div @click.stop class="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 relative">
-                    {{-- Cerrar --}}
-                    <button @click="showLogin = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                    <button @click="modal = ''" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
 
-                    {{-- Logo --}}
                     <div class="text-center mb-6">
-                        <a href="{{ lroute('home') }}" class="text-2xl font-bold text-cyan-700">oceaNakama</a>
+                        <span class="text-2xl font-bold text-cyan-700">oceaNakama</span>
                     </div>
 
-                    {{-- Formulario --}}
                     <form method="POST" action="{{ route('login') }}" class="space-y-5">
                         @csrf
 
                         <div>
-                            <label for="modal_email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
-                            <input id="modal_email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                            <label for="login_email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
+                            <input id="login_email" type="email" name="email" value="{{ old('email') }}" required
                                    class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
                             @error('email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -226,8 +225,8 @@
                         </div>
 
                         <div>
-                            <label for="modal_password" class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
-                            <input id="modal_password" type="password" name="password" required
+                            <label for="login_password" class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
+                            <input id="login_password" type="password" name="password" required
                                    class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
                             @error('password')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -250,9 +249,78 @@
 
                         <p class="text-center text-sm text-gray-600">
                             {{ __('¿No tienes cuenta?') }}
-                            <a href="{{ route('register') }}" class="text-cyan-700 font-medium hover:text-cyan-800 transition">
+                            <button type="button" @click="modal = 'register'" class="text-cyan-700 font-medium hover:text-cyan-800 transition">
                                 {{ __('Registro') }}
-                            </a>
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            {{-- Modal Registro --}}
+            <div x-show="modal === 'register'"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                 class="fixed inset-0 z-[70] flex items-center justify-center p-4"
+                 style="display: none;">
+                <div @click.stop class="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 relative">
+                    <button @click="modal = ''" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+
+                    <div class="text-center mb-6">
+                        <span class="text-2xl font-bold text-cyan-700">oceaNakama</span>
+                    </div>
+
+                    <form method="POST" action="{{ route('register') }}" class="space-y-5">
+                        @csrf
+
+                        <div>
+                            <label for="register_name" class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
+                            <input id="register_name" type="text" name="name" value="{{ old('name') }}" required
+                                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+                            @error('name')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="register_email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
+                            <input id="register_email" type="email" name="email" value="{{ old('email') }}" required
+                                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+                            @error('email')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="register_password" class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
+                            <input id="register_password" type="password" name="password" required
+                                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+                            @error('password')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="register_password_confirmation" class="block text-sm font-medium text-gray-700">{{ __('Confirm Password') }}</label>
+                            <input id="register_password_confirmation" type="password" name="password_confirmation" required
+                                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+                        </div>
+
+                        <button type="submit" class="w-full py-2.5 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition">
+                            {{ __('Register') }}
+                        </button>
+
+                        <p class="text-center text-sm text-gray-600">
+                            {{ __('¿Ya tienes cuenta?') }}
+                            <button type="button" @click="modal = 'login'" class="text-cyan-700 font-medium hover:text-cyan-800 transition">
+                                {{ __('Entrar') }}
+                            </button>
                         </p>
                     </form>
                 </div>
