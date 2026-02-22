@@ -175,9 +175,10 @@
 
         {{-- Modales Auth --}}
         @guest
-        <div x-data="{ modal: '{{ $errors->has('name') || $errors->has('password_confirmation') ? 'register' : ($errors->any() ? 'login' : '') }}' }"
+        <div x-data="{ modal: '{{ old('_modal', session('_modal', '')) ?: ($errors->has('name') || $errors->has('password_confirmation') ? 'register' : ($errors->any() ? 'login' : '')) }}' }"
              @open-login-modal.window="modal = 'login'"
              @open-register-modal.window="modal = 'register'"
+             @open-forgot-modal.window="modal = 'forgot'"
              @keydown.escape.window="modal = ''">
 
             {{-- Overlay --}}
@@ -214,6 +215,7 @@
 
                     <form method="POST" action="{{ route('login') }}" class="space-y-5">
                         @csrf
+                        <input type="hidden" name="_modal" value="login">
 
                         <div>
                             <label for="login_email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
@@ -238,9 +240,9 @@
                                 <input type="checkbox" name="remember" class="rounded border-gray-300 text-cyan-700 shadow-sm focus:ring-cyan-500">
                                 <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                             </label>
-                            <a href="{{ route('password.request') }}" class="text-sm text-cyan-700 hover:text-cyan-800 transition">
+                            <button type="button" @click="modal = 'forgot'" class="text-sm text-cyan-700 hover:text-cyan-800 transition">
                                 {{ __('Forgot your password?') }}
-                            </a>
+                            </button>
                         </div>
 
                         <button type="submit" class="w-full py-2.5 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition">
@@ -278,6 +280,7 @@
 
                     <form method="POST" action="{{ route('register') }}" class="space-y-5">
                         @csrf
+                        <input type="hidden" name="_modal" value="register">
 
                         <div>
                             <label for="register_name" class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
@@ -320,6 +323,60 @@
                             {{ __('¿Ya tienes cuenta?') }}
                             <button type="button" @click="modal = 'login'" class="text-cyan-700 font-medium hover:text-cyan-800 transition">
                                 {{ __('Entrar') }}
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            {{-- Modal Recuperar contraseña --}}
+            <div x-show="modal === 'forgot'"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                 class="fixed inset-0 z-[70] flex items-center justify-center p-4"
+                 style="display: none;">
+                <div @click.stop class="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 relative">
+                    <button @click="modal = ''" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+
+                    <div class="text-center mb-6">
+                        <span class="text-2xl font-bold text-cyan-700">oceaNakama</span>
+                    </div>
+
+                    <p class="text-sm text-gray-600 mb-5">
+                        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                    </p>
+
+                    @if (session('status'))
+                        <div class="mb-4 text-sm font-medium text-green-600">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
+                        @csrf
+                        <input type="hidden" name="_modal" value="forgot">
+
+                        <div>
+                            <label for="forgot_email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
+                            <input id="forgot_email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+                            @error('email')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="w-full py-2.5 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition">
+                            {{ __('Email Password Reset Link') }}
+                        </button>
+
+                        <p class="text-center text-sm text-gray-600">
+                            <button type="button" @click="modal = 'login'" class="text-cyan-700 font-medium hover:text-cyan-800 transition">
+                                {{ __('Volver al inicio de sesión') }}
                             </button>
                         </p>
                     </form>
