@@ -20,15 +20,15 @@
         {{-- Navegación --}}
         <nav x-data="{ open: false }" class="bg-white shadow-sm sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    {{-- Logo --}}
-                    <div class="flex items-center">
+                <div class="flex items-center justify-between h-16">
+                    {{-- Izquierda: Logo --}}
+                    <div class="flex-shrink-0">
                         <a href="{{ lroute('home') }}" class="text-xl font-bold text-cyan-700">
                             oceaNakama
                         </a>
                     </div>
 
-                    {{-- Desktop Nav --}}
+                    {{-- Centro: Navegación principal --}}
                     <div class="hidden sm:flex sm:items-center sm:space-x-8">
                         <a href="{{ lroute('home') }}"
                            class="text-sm font-medium {{ request()->routeIs('*.home') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
@@ -42,6 +42,24 @@
                            class="text-sm font-medium {{ request()->routeIs('*.contacto') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
                             {{ __('Contacto') }}
                         </a>
+                    </div>
+
+                    {{-- Derecha: Mi cuenta + Idioma --}}
+                    <div class="hidden sm:flex sm:items-center sm:space-x-4">
+                        @auth
+                            <a href="{{ lroute('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition">
+                                {{ __('Mi cuenta') }}
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition">
+                                {{ __('Entrar') }}
+                            </a>
+                            <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 transition">
+                                {{ __('Registro') }}
+                            </a>
+                        @endauth
+
+                        <span class="w-px h-5 bg-gray-200"></span>
 
                         {{-- Selector de idioma --}}
                         <div x-data="{ langOpen: false }" class="relative">
@@ -55,19 +73,6 @@
                                 <a href="{{ switchLocaleUrl('en') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">EN</a>
                             </div>
                         </div>
-
-                        @auth
-                            <a href="{{ lroute('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition">
-                                {{ __('Mi cuenta') }}
-                            </a>
-                        @else
-                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition">
-                                {{ __('Entrar') }}
-                            </a>
-                            <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 transition">
-                                {{ __('Registro') }}
-                            </a>
-                        @endauth
                     </div>
 
                     {{-- Mobile hamburger --}}
@@ -85,19 +90,21 @@
             {{-- Mobile menu --}}
             <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden border-t">
                 <div class="px-4 py-3 space-y-2">
-                    <a href="{{ lroute('home') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Inicio') }}</a>
-                    <a href="{{ lroute('cursos.index') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Cursos') }}</a>
-                    <a href="{{ lroute('contacto') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Contacto') }}</a>
-                    <div class="flex space-x-3 pt-2 border-t">
-                        <a href="{{ switchLocaleUrl('es') }}" class="text-sm text-gray-500">ES</a>
-                        <a href="{{ switchLocaleUrl('en') }}" class="text-sm text-gray-500">EN</a>
+                    <a href="{{ lroute('home') }}" class="block text-sm font-medium {{ request()->routeIs('*.home') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Inicio') }}</a>
+                    <a href="{{ lroute('cursos.index') }}" class="block text-sm font-medium {{ request()->routeIs('*.cursos.*') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Cursos') }}</a>
+                    <a href="{{ lroute('contacto') }}" class="block text-sm font-medium {{ request()->routeIs('*.contacto') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Contacto') }}</a>
+                    <div class="pt-2 border-t space-y-2">
+                        @auth
+                            <a href="{{ lroute('dashboard') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Mi cuenta') }}</a>
+                        @else
+                            <a href="{{ route('login') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Entrar') }}</a>
+                            <a href="{{ route('register') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Registro') }}</a>
+                        @endauth
                     </div>
-                    @auth
-                        <a href="{{ lroute('dashboard') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Mi cuenta') }}</a>
-                    @else
-                        <a href="{{ route('login') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Entrar') }}</a>
-                        <a href="{{ route('register') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Registro') }}</a>
-                    @endauth
+                    <div class="flex space-x-3 pt-2 border-t">
+                        <a href="{{ switchLocaleUrl('es') }}" class="text-sm {{ app()->getLocale() === 'es' ? 'text-cyan-700 font-medium' : 'text-gray-500' }}">ES</a>
+                        <a href="{{ switchLocaleUrl('en') }}" class="text-sm {{ app()->getLocale() === 'en' ? 'text-cyan-700 font-medium' : 'text-gray-500' }}">EN</a>
+                    </div>
                 </div>
             </div>
         </nav>
