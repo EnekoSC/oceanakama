@@ -1,5 +1,5 @@
 <article class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition group">
-    <a href="{{ route('cursos.show', $curso->slug) }}">
+    <a href="{{ lroute('cursos.show', $curso->slug) }}">
         @if($curso->imagen_url)
             <img src="{{ Storage::url($curso->imagen_url) }}" alt="{{ $curso->nombre }}"
                  class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" loading="lazy">
@@ -26,7 +26,7 @@
             @endif
         </div>
         <h3 class="font-semibold text-gray-900 mb-1">
-            <a href="{{ route('cursos.show', $curso->slug) }}" class="hover:text-cyan-700 transition">
+            <a href="{{ lroute('cursos.show', $curso->slug) }}" class="hover:text-cyan-700 transition">
                 {{ $curso->nombre }}
             </a>
         </h3>

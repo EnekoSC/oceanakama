@@ -9,7 +9,7 @@
 - {{ __('Gestionar tus reservas desde tu panel.') }}
 - {{ __('Dejar reseñas de los cursos que completes.') }}
 
-<x-mail::button :url="route('cursos.index')">
+<x-mail::button :url="lroute('cursos.index')">
 {{ __('Explorar cursos') }}
 </x-mail::button>
 

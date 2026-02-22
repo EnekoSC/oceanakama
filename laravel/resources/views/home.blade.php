@@ -13,7 +13,7 @@
                 <p class="text-lg text-cyan-100 mb-8 drop-shadow">
                     {{ __('Cursos de buceo certificados SSI para todos los niveles. Aprende con profesionales y vive la aventura del mar.') }}
                 </p>
-                <a href="{{ route('cursos.index') }}"
+                <a href="{{ lroute('cursos.index') }}"
                    class="inline-flex items-center px-6 py-3 bg-white text-cyan-800 font-semibold rounded-lg hover:bg-cyan-50 transition shadow-lg">
                     {{ __('Ver cursos') }}
                     <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -32,7 +32,7 @@
             @endforeach
         </div>
         <div class="text-center mt-10">
-            <a href="{{ route('cursos.index') }}" class="text-cyan-700 font-semibold hover:underline">
+            <a href="{{ lroute('cursos.index') }}" class="text-cyan-700 font-semibold hover:underline">
                 {{ __('Ver todos los cursos') }} &rarr;
             </a>
         </div>
@@ -46,7 +46,7 @@
             <p class="text-gray-600 mb-8 max-w-xl mx-auto">
                 {{ __('Contáctanos por WhatsApp o escríbenos un mensaje. Estaremos encantados de ayudarte a elegir el curso perfecto.') }}
             </p>
-            <a href="{{ route('contacto') }}"
+            <a href="{{ lroute('contacto') }}"
                class="inline-flex items-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition">
                 {{ __('Contactar') }}
             </a>

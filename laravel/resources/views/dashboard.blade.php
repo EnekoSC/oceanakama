@@ -9,7 +9,7 @@
                 <p class="mt-1 text-gray-500">{{ auth()->user()->email }}</p>
             </div>
             <div class="mt-4 sm:mt-0 flex space-x-3">
-                <a href="{{ route('profile.edit') }}"
+                <a href="{{ lroute('profile.edit') }}"
                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition">
                     {{ __('Editar perfil') }}
                 </a>
@@ -33,7 +33,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                     <p class="text-gray-500 mb-4">{{ __('Aún no tienes ninguna reserva.') }}</p>
-                    <a href="{{ route('cursos.index') }}"
+                    <a href="{{ lroute('cursos.index') }}"
                        class="inline-flex items-center px-5 py-2.5 bg-cyan-700 text-white font-medium rounded-lg hover:bg-cyan-800 transition">
                         {{ __('Explorar cursos') }}
                     </a>
@@ -62,7 +62,7 @@
                                     <div class="flex-1">
                                         <div class="flex items-center gap-3 mb-1">
                                             <h3 class="font-semibold text-gray-900">
-                                                <a href="{{ route('cursos.show', $reserva->curso->slug) }}" class="hover:text-cyan-700 transition">
+                                                <a href="{{ lroute('cursos.show', $reserva->curso->slug) }}" class="hover:text-cyan-700 transition">
                                                     {{ $reserva->curso->nombre }}
                                                 </a>
                                             </h3>
@@ -94,7 +94,7 @@
 
                                     {{-- Acciones --}}
                                     <div class="flex flex-wrap gap-2 sm:flex-col sm:items-end">
-                                        <a href="{{ route('cursos.show', $reserva->curso->slug) }}"
+                                        <a href="{{ lroute('cursos.show', $reserva->curso->slug) }}"
                                            class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-cyan-700 bg-cyan-50 rounded-lg hover:bg-cyan-100 transition">
                                             {{ __('Ver curso') }}
                                         </a>
@@ -102,7 +102,7 @@
                                         @if ($reserva->estado === \App\Enums\EstadoReserva::Confirmada
                                             && $reserva->curso->estado === \App\Enums\EstadoCurso::Completado
                                             && !in_array($reserva->curso_id, $resenasHechas))
-                                            <a href="{{ route('cursos.show', $reserva->curso->slug) }}#resenas"
+                                            <a href="{{ lroute('cursos.show', $reserva->curso->slug) }}#resenas"
                                                class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-amber-700 bg-amber-50 rounded-lg hover:bg-amber-100 transition">
                                                 {{ __('Dejar reseña') }}
                                             </a>

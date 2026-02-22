@@ -15,7 +15,7 @@
 
 {{ __('Si tienes alguna pregunta, no dudes en contactarnos.') }}
 
-<x-mail::button :url="route('dashboard')">
+<x-mail::button :url="lroute('dashboard')">
 {{ __('Ver mis reservas') }}
 </x-mail::button>
 

@@ -5,7 +5,7 @@
         <h1 class="text-3xl font-bold text-gray-900 mb-8">{{ __('Cursos de buceo') }}</h1>
 
         {{-- Filtros --}}
-        <form method="GET" action="{{ route('cursos.index') }}" class="mb-8">
+        <form method="GET" action="{{ lroute('cursos.index') }}" class="mb-8">
             <div class="flex flex-wrap gap-4 items-end">
                 <div>
                     <label for="buscar" class="block text-sm font-medium text-gray-700 mb-1">{{ __('Buscar') }}</label>
@@ -35,7 +35,7 @@
                         {{ __('Filtrar') }}
                     </button>
                     @if(request()->hasAny(['buscar', 'nivel', 'precio_max']))
-                        <a href="{{ route('cursos.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition">
+                        <a href="{{ lroute('cursos.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition">
                             {{ __('Limpiar') }}
                         </a>
                     @endif
@@ -58,7 +58,7 @@
             <div class="text-center py-16">
                 <svg class="mx-auto w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
                 <p class="text-gray-500 text-lg">{{ __('No se encontraron cursos con esos filtros.') }}</p>
-                <a href="{{ route('cursos.index') }}" class="text-cyan-700 font-medium hover:underline mt-2 inline-block">{{ __('Ver todos los cursos') }}</a>
+                <a href="{{ lroute('cursos.index') }}" class="text-cyan-700 font-medium hover:underline mt-2 inline-block">{{ __('Ver todos los cursos') }}</a>
             </div>
         @endif
     </div>

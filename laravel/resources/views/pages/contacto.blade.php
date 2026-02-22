@@ -11,7 +11,7 @@
         @endif
 
         <div class="bg-white rounded-xl shadow-sm p-8">
-            <form method="POST" action="{{ route('contacto.send') }}" class="space-y-6">
+            <form method="POST" action="{{ lroute('contacto.send') }}" class="space-y-6">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>

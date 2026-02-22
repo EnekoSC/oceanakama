@@ -8,6 +8,9 @@
         <title>{{ isset($title) ? $title . ' — ' . config('app.name') : config('app.name') }}</title>
         <meta name="description" content="{{ $metaDescription ?? __('Cursos de buceo certificados SSI. Formación, aventura y pasión por el mar.') }}">
 
+        <link rel="alternate" hreflang="es" href="{{ switchLocaleUrl('es') }}">
+        <link rel="alternate" hreflang="en" href="{{ switchLocaleUrl('en') }}">
+
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
@@ -20,23 +23,23 @@
                 <div class="flex justify-between h-16">
                     {{-- Logo --}}
                     <div class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-xl font-bold text-cyan-700">
+                        <a href="{{ lroute('home') }}" class="text-xl font-bold text-cyan-700">
                             oceaNakama
                         </a>
                     </div>
 
                     {{-- Desktop Nav --}}
                     <div class="hidden sm:flex sm:items-center sm:space-x-8">
-                        <a href="{{ route('home') }}"
-                           class="text-sm font-medium {{ request()->routeIs('home') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
+                        <a href="{{ lroute('home') }}"
+                           class="text-sm font-medium {{ request()->routeIs('*.home') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
                             {{ __('Inicio') }}
                         </a>
-                        <a href="{{ route('cursos.index') }}"
-                           class="text-sm font-medium {{ request()->routeIs('cursos.*') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
+                        <a href="{{ lroute('cursos.index') }}"
+                           class="text-sm font-medium {{ request()->routeIs('*.cursos.*') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
                             {{ __('Cursos') }}
                         </a>
-                        <a href="{{ route('contacto') }}"
-                           class="text-sm font-medium {{ request()->routeIs('contacto') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
+                        <a href="{{ lroute('contacto') }}"
+                           class="text-sm font-medium {{ request()->routeIs('*.contacto') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
                             {{ __('Contacto') }}
                         </a>
 
@@ -48,13 +51,13 @@
                             </button>
                             <div x-show="langOpen" @click.away="langOpen = false" x-transition
                                  class="absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg border">
-                                <a href="{{ route('lang.switch', 'es') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">ES</a>
-                                <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">EN</a>
+                                <a href="{{ switchLocaleUrl('es') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">ES</a>
+                                <a href="{{ switchLocaleUrl('en') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">EN</a>
                             </div>
                         </div>
 
                         @auth
-                            <a href="{{ route('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition">
+                            <a href="{{ lroute('dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-cyan-700 transition">
                                 {{ __('Mi cuenta') }}
                             </a>
                         @else
@@ -82,15 +85,15 @@
             {{-- Mobile menu --}}
             <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden border-t">
                 <div class="px-4 py-3 space-y-2">
-                    <a href="{{ route('home') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Inicio') }}</a>
-                    <a href="{{ route('cursos.index') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Cursos') }}</a>
-                    <a href="{{ route('contacto') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Contacto') }}</a>
+                    <a href="{{ lroute('home') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Inicio') }}</a>
+                    <a href="{{ lroute('cursos.index') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Cursos') }}</a>
+                    <a href="{{ lroute('contacto') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Contacto') }}</a>
                     <div class="flex space-x-3 pt-2 border-t">
-                        <a href="{{ route('lang.switch', 'es') }}" class="text-sm text-gray-500">ES</a>
-                        <a href="{{ route('lang.switch', 'en') }}" class="text-sm text-gray-500">EN</a>
+                        <a href="{{ switchLocaleUrl('es') }}" class="text-sm text-gray-500">ES</a>
+                        <a href="{{ switchLocaleUrl('en') }}" class="text-sm text-gray-500">EN</a>
                     </div>
                     @auth
-                        <a href="{{ route('dashboard') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Mi cuenta') }}</a>
+                        <a href="{{ lroute('dashboard') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Mi cuenta') }}</a>
                     @else
                         <a href="{{ route('login') }}" class="block text-sm font-medium text-gray-700 py-1">{{ __('Entrar') }}</a>
                         <a href="{{ route('register') }}" class="block text-sm font-medium text-cyan-700 py-1">{{ __('Registro') }}</a>
@@ -115,16 +118,16 @@
                     <div>
                         <h4 class="text-white font-semibold mb-3">{{ __('Enlaces') }}</h4>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="{{ route('cursos.index') }}" class="hover:text-white transition">{{ __('Cursos') }}</a></li>
-                            <li><a href="{{ route('contacto') }}" class="hover:text-white transition">{{ __('Contacto') }}</a></li>
+                            <li><a href="{{ lroute('cursos.index') }}" class="hover:text-white transition">{{ __('Cursos') }}</a></li>
+                            <li><a href="{{ lroute('contacto') }}" class="hover:text-white transition">{{ __('Contacto') }}</a></li>
                         </ul>
                     </div>
                     <div>
                         <h4 class="text-white font-semibold mb-3">{{ __('Legal') }}</h4>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="{{ route('privacidad') }}" class="hover:text-white transition">{{ __('Política de privacidad') }}</a></li>
-                            <li><a href="{{ route('terminos') }}" class="hover:text-white transition">{{ __('Términos y condiciones') }}</a></li>
-                            <li><a href="{{ route('cookies') }}" class="hover:text-white transition">{{ __('Cookies') }}</a></li>
+                            <li><a href="{{ lroute('privacidad') }}" class="hover:text-white transition">{{ __('Política de privacidad') }}</a></li>
+                            <li><a href="{{ lroute('terminos') }}" class="hover:text-white transition">{{ __('Términos y condiciones') }}</a></li>
+                            <li><a href="{{ lroute('cookies') }}" class="hover:text-white transition">{{ __('Cookies') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -148,7 +151,7 @@
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <p class="text-sm text-gray-600 flex-1">
                     {{ __('Utilizamos cookies técnicas necesarias para el funcionamiento del sitio.') }}
-                    <a href="{{ route('cookies') }}" class="text-cyan-700 underline hover:text-cyan-800">{{ __('Más información') }}</a>
+                    <a href="{{ lroute('cookies') }}" class="text-cyan-700 underline hover:text-cyan-800">{{ __('Más información') }}</a>
                 </p>
                 <div class="flex gap-2 flex-shrink-0">
                     <button @click="document.cookie = 'cookie_consent=accepted; path=/; max-age=31536000; SameSite=Lax'; show = false"

@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {{-- Breadcrumb --}}
         <nav class="mb-6 text-sm text-gray-500">
-            <a href="{{ route('cursos.index') }}" class="hover:text-cyan-700">{{ __('Cursos') }}</a>
+            <a href="{{ lroute('cursos.index') }}" class="hover:text-cyan-700">{{ __('Cursos') }}</a>
             <span class="mx-2">/</span>
             <span class="text-gray-900">{{ $curso->nombre }}</span>
         </nav>
