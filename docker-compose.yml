@@ -86,6 +86,8 @@ services:
       - ./laravel:/var/www
     networks:
       - nakama
+    environment:
+      - VITE_HOST_PORT=${VITE_PORT:-5174}
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     ports:
       - "${VITE_PORT:-5174}:5173"

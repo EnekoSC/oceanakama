@@ -13,6 +13,7 @@ export default defineConfig({
         port: 5173,
         hmr: {
             host: 'localhost',
+            clientPort: parseInt(process.env.VITE_HOST_PORT || '5174'),
         },
     },
 });
