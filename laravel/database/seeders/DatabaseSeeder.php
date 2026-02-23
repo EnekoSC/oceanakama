@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@oceanakama.com',
         ]);
         $admin->assignRole('admin');
+
+        $this->call(PostSeeder::class);
     }
 }

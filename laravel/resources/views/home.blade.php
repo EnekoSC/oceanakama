@@ -39,6 +39,25 @@
     </section>
     @endif
 
+    {{-- Últimas noticias --}}
+    @if($ultimosPosts->isNotEmpty())
+    <section class="bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <h2 class="text-2xl font-bold text-gray-900 mb-8">{{ __('Últimas noticias') }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($ultimosPosts as $post)
+                    @include('posts._card', ['post' => $post])
+                @endforeach
+            </div>
+            <div class="text-center mt-10">
+                <a href="{{ lroute('blog.index') }}" class="text-cyan-700 font-semibold hover:underline">
+                    {{ __('Ver todas las noticias') }} &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+    @endif
+
     {{-- CTA --}}
     <section class="bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">

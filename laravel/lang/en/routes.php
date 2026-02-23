@@ -8,4 +8,5 @@ return [
     'cookies' => 'cookies',
     'dashboard' => 'dashboard',
     'profile' => 'profile',
+    'blog' => 'blog',
 ];

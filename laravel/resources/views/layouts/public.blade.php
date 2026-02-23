@@ -39,6 +39,10 @@
                            class="text-sm font-medium {{ request()->routeIs('*.cursos.*') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
                             {{ __('Cursos') }}
                         </a>
+                        <a href="{{ lroute('blog.index') }}"
+                           class="text-sm font-medium {{ request()->routeIs('*.blog.*') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
+                            {{ __('Blog') }}
+                        </a>
                         <a href="{{ lroute('contacto') }}"
                            class="text-sm font-medium {{ request()->routeIs('*.contacto') ? 'text-cyan-700' : 'text-gray-600 hover:text-cyan-700' }} transition">
                             {{ __('Contacto') }}
@@ -94,6 +98,7 @@
                 <div class="px-4 py-3 space-y-2">
                     <a href="{{ lroute('home') }}" class="block text-sm font-medium {{ request()->routeIs('*.home') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Inicio') }}</a>
                     <a href="{{ lroute('cursos.index') }}" class="block text-sm font-medium {{ request()->routeIs('*.cursos.*') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Cursos') }}</a>
+                    <a href="{{ lroute('blog.index') }}" class="block text-sm font-medium {{ request()->routeIs('*.blog.*') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Blog') }}</a>
                     <a href="{{ lroute('contacto') }}" class="block text-sm font-medium {{ request()->routeIs('*.contacto') ? 'text-cyan-700' : 'text-gray-700' }} py-1">{{ __('Contacto') }}</a>
                     <div class="pt-2 border-t space-y-2">
                         @auth
@@ -129,6 +134,7 @@
                         <h4 class="text-white font-semibold mb-3">{{ __('Enlaces') }}</h4>
                         <ul class="space-y-2 text-sm">
                             <li><a href="{{ lroute('cursos.index') }}" class="hover:text-white transition">{{ __('Cursos') }}</a></li>
+                            <li><a href="{{ lroute('blog.index') }}" class="hover:text-white transition">{{ __('Blog') }}</a></li>
                             <li><a href="{{ lroute('contacto') }}" class="hover:text-white transition">{{ __('Contacto') }}</a></li>
                         </ul>
                     </div>

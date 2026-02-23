@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ foreach (['es', 'en', 'fr'] as $locale) {
             Route::get('/', HomeController::class)->name("{$locale}.home");
             Route::get($t('courses'), [CursoController::class, 'index'])->name("{$locale}.cursos.index");
             Route::get($t('courses') . '/{curso:slug}', [CursoController::class, 'show'])->name("{$locale}.cursos.show");
+            Route::get($t('blog'), [PostController::class, 'index'])->name("{$locale}.blog.index");
+            Route::get($t('blog') . '/{post:slug}', [PostController::class, 'show'])->name("{$locale}.blog.show");
             Route::get($t('contact'), fn () => view('pages.contacto'))->name("{$locale}.contacto");
             Route::post($t('contact'), [ContactoController::class, 'send'])->name("{$locale}.contacto.send");
             Route::get($t('privacy'), fn () => view('pages.privacidad'))->name("{$locale}.privacidad");

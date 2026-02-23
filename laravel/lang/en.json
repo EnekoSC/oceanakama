@@ -424,5 +424,13 @@
     "nombre, apellidos, email, teléfono, certificación de buceo, número de inmersiones, seguro de buceo e idioma preferido.": "name, surname, email, phone, diving certification, number of dives, diving insurance and preferred language.",
     "para el procesamiento de pagos.": "for payment processing.",
     "plazas": "spots",
-    "Requisitos de los cursos": "Course Requirements"
+    "Requisitos de los cursos": "Course Requirements",
+    "Blog": "Blog",
+    "Leer más": "Read more",
+    "Publicado el": "Published on",
+    "No hay artículos publicados.": "No articles published.",
+    "Últimas noticias": "Latest news",
+    "Ver todas las noticias": "View all news",
+    "Borrador": "Draft",
+    "Archivado": "Archived"
 }

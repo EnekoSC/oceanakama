@@ -8,4 +8,5 @@ return [
     'cookies' => 'cookies',
     'dashboard' => 'tableau-de-bord',
     'profile' => 'profil',
+    'blog' => 'blog',
 ];
