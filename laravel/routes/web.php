@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 // Localized routes
-foreach (['es', 'en'] as $locale) {
+foreach (['es', 'en', 'fr'] as $locale) {
     $t = fn (string $key): string => __("routes.{$key}", [], $locale);
 
     Route::prefix($locale)

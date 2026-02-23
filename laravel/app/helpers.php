@@ -26,7 +26,7 @@ if (! function_exists('switchLocaleUrl')) {
         }
 
         $currentName = $route->getName();
-        $targetName = preg_replace('/^(es|en)\./', "{$targetLocale}.", $currentName);
+        $targetName = preg_replace('/^(es|en|fr)\./', "{$targetLocale}.", $currentName);
 
         try {
             return route($targetName, $route->parameters());

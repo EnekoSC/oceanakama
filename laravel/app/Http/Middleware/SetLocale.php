@@ -12,13 +12,13 @@ class SetLocale
     {
         $locale = $request->segment(1);
 
-        if (in_array($locale, ['es', 'en'])) {
+        if (in_array($locale, ['es', 'en', 'fr'])) {
             app()->setLocale($locale);
             session(['locale' => $locale]);
-        } elseif ($request->query('lang') && in_array($request->query('lang'), ['es', 'en'])) {
+        } elseif ($request->query('lang') && in_array($request->query('lang'), ['es', 'en', 'fr'])) {
             app()->setLocale($request->query('lang'));
             session(['locale' => $request->query('lang')]);
-        } elseif (session('locale') && in_array(session('locale'), ['es', 'en'])) {
+        } elseif (session('locale') && in_array(session('locale'), ['es', 'en', 'fr'])) {
             app()->setLocale(session('locale'));
         }
 

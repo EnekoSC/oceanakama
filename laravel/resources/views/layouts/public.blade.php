@@ -10,6 +10,7 @@
 
         <link rel="alternate" hreflang="es" href="{{ switchLocaleUrl('es') }}">
         <link rel="alternate" hreflang="en" href="{{ switchLocaleUrl('en') }}">
+        <link rel="alternate" hreflang="fr" href="{{ switchLocaleUrl('fr') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
@@ -71,6 +72,7 @@
                                  class="absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg border">
                                 <a href="{{ switchLocaleUrl('es') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">ES</a>
                                 <a href="{{ switchLocaleUrl('en') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">EN</a>
+                                <a href="{{ switchLocaleUrl('fr') }}" class="block px-4 py-2 text-sm hover:bg-gray-50">FR</a>
                             </div>
                         </div>
                     </div>
@@ -104,6 +106,7 @@
                     <div class="flex space-x-3 pt-2 border-t">
                         <a href="{{ switchLocaleUrl('es') }}" class="text-sm {{ app()->getLocale() === 'es' ? 'text-cyan-700 font-medium' : 'text-gray-500' }}">ES</a>
                         <a href="{{ switchLocaleUrl('en') }}" class="text-sm {{ app()->getLocale() === 'en' ? 'text-cyan-700 font-medium' : 'text-gray-500' }}">EN</a>
+                        <a href="{{ switchLocaleUrl('fr') }}" class="text-sm {{ app()->getLocale() === 'fr' ? 'text-cyan-700 font-medium' : 'text-gray-500' }}">FR</a>
                     </div>
                 </div>
             </div>
