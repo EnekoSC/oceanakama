@@ -12,7 +12,7 @@ enum EstadoCurso: string
     public function label(): string
     {
         return match ($this) {
-            self::Proximo => __('Próximo'),
+            self::Proximo => __('Próximamente'),
             self::EnCurso => __('En curso'),
             self::Completado => __('Completado'),
             self::Cancelado => __('Cancelado'),
