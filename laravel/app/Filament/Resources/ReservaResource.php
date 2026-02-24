@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 
 class ReservaResource extends Resource
@@ -46,7 +47,7 @@ class ReservaResource extends Resource
                         Forms\Components\Select::make('estado')
                             ->options(collect(EstadoReserva::cases())->mapWithKeys(fn ($case) => [$case->value => $case->label()]))
                             ->required()
-                            ->default(EstadoReserva::PendientePago->value),
+                            ->default(EstadoReserva::Pendiente->value),
                         Forms\Components\TextInput::make('precio_pagado')
                             ->numeric()
                             ->prefix('€')
@@ -88,6 +89,7 @@ class ReservaResource extends Resource
                     ->badge()
                     ->formatStateUsing(fn (EstadoReserva $state) => $state->label())
                     ->color(fn (EstadoReserva $state) => match ($state) {
+                        EstadoReserva::Pendiente => 'info',
                         EstadoReserva::PendientePago => 'warning',
                         EstadoReserva::Confirmada => 'success',
                         EstadoReserva::Cancelada => 'danger',
@@ -109,6 +111,24 @@ class ReservaResource extends Resource
                     ->options(collect(EstadoReserva::cases())->mapWithKeys(fn ($case) => [$case->value => $case->label()])),
             ])
             ->actions([
+                Action::make('confirmar')
+                    ->label('Confirmar')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('Confirmar reserva')
+                    ->modalDescription('¿Estás seguro de que quieres confirmar esta reserva? Se enviará un email de confirmación al usuario.')
+                    ->visible(fn (Reserva $record) => $record->estado === EstadoReserva::Pendiente)
+                    ->action(fn (Reserva $record) => $record->update(['estado' => EstadoReserva::Confirmada])),
+                Action::make('cancelar')
+                    ->label('Cancelar')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->modalHeading('Cancelar reserva')
+                    ->modalDescription('¿Estás seguro de que quieres cancelar esta reserva? Se liberará la plaza.')
+                    ->visible(fn (Reserva $record) => in_array($record->estado, [EstadoReserva::Pendiente, EstadoReserva::Confirmada]))
+                    ->action(fn (Reserva $record) => $record->update(['estado' => EstadoReserva::Cancelada])),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([]);

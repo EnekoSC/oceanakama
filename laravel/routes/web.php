@@ -5,6 +5,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 
 // Root: redirect to default locale
@@ -34,6 +35,7 @@ foreach (['es', 'en', 'fr'] as $locale) {
             // Authenticated
             Route::middleware(['auth', 'verified'])->group(function () use ($locale, $t) {
                 Route::get($t('dashboard'), [DashboardController::class, 'index'])->name("{$locale}.dashboard");
+                Route::post($t('courses') . '/{curso:slug}/' . $t('reserve'), [ReservaController::class, 'store'])->name("{$locale}.cursos.reservar");
                 Route::get($t('profile'), [ProfileController::class, 'edit'])->name("{$locale}.profile.edit");
                 Route::patch($t('profile'), [ProfileController::class, 'update'])->name("{$locale}.profile.update");
                 Route::delete($t('profile'), [ProfileController::class, 'destroy'])->name("{$locale}.profile.destroy");

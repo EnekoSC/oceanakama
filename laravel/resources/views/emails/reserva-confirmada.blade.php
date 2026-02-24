@@ -10,7 +10,9 @@
 | **{{ __('Fecha') }}** | {{ $reserva->curso->fecha_inicio?->translatedFormat('d M Y') }} — {{ $reserva->curso->fecha_fin?->translatedFormat('d M Y') }} |
 | **{{ __('Nivel') }}** | {{ $reserva->curso->nivel->label() }} |
 | **{{ __('Duración') }}** | {{ $reserva->curso->duracion }} |
+@if($reserva->precio_pagado)
 | **{{ __('Precio pagado') }}** | {{ number_format($reserva->precio_pagado, 2, ',', '.') }} &euro; |
+@endif
 </x-mail::table>
 
 {{ __('Si tienes alguna pregunta, no dudes en contactarnos.') }}

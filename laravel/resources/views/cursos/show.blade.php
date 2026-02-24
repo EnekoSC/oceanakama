@@ -106,12 +106,45 @@
                         </div>
                     </dl>
 
-                    @if($curso->tieneDisponibilidad() && $curso->estado === \App\Enums\EstadoCurso::Proximo)
+                    @if(session('success'))
+                        <div class="mb-4 p-3 rounded-lg bg-green-50 text-green-800 text-sm font-medium">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="mb-4 p-3 rounded-lg bg-red-50 text-red-800 text-sm font-medium">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @php
+                        $reservaActiva = auth()->check()
+                            ? $curso->reservas()->where('user_id', auth()->id())
+                                ->whereIn('estado', [\App\Enums\EstadoReserva::Pendiente, \App\Enums\EstadoReserva::PendientePago, \App\Enums\EstadoReserva::Confirmada])
+                                ->first()
+                            : null;
+                    @endphp
+
+                    @if($reservaActiva)
+                        @php
+                            $badgeClasses = match($reservaActiva->estado) {
+                                \App\Enums\EstadoReserva::Pendiente => 'bg-blue-100 text-blue-800',
+                                \App\Enums\EstadoReserva::PendientePago => 'bg-yellow-100 text-yellow-800',
+                                \App\Enums\EstadoReserva::Confirmada => 'bg-green-100 text-green-800',
+                            };
+                        @endphp
+                        <div class="text-center py-3 rounded-lg {{ $badgeClasses }} font-medium">
+                            {{ $reservaActiva->estado->label() }}
+                        </div>
+                    @elseif($curso->tieneDisponibilidad() && $curso->estado === \App\Enums\EstadoCurso::Proximo)
                         @auth
-                            <a href="#"
-                               class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition">
-                                {{ __('Reservar plaza') }}
-                            </a>
+                            <form action="{{ lroute('cursos.reservar', $curso->slug) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                   class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition cursor-pointer">
+                                    {{ __('Reservar plaza') }}
+                                </button>
+                            </form>
                         @else
                             <button @click="$dispatch('open-login-modal')"
                                class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition cursor-pointer">

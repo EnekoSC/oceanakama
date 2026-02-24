@@ -433,5 +433,15 @@
     "Ver todas las noticias": "View all news",
     "Borrador": "Draft",
     "Archivado": "Archived",
-    "Síguenos": "Follow us"
+    "Síguenos": "Follow us",
+    "Pendiente de confirmación": "Pending confirmation",
+    "Ya tienes una reserva activa para este curso.": "You already have an active reservation for this course.",
+    "Este curso no está disponible para reservas.": "This course is not available for reservations.",
+    "Lo sentimos, no quedan plazas disponibles.": "Sorry, there are no spots available.",
+    "Tu reserva se ha registrado correctamente. Recibirás un email cuando sea confirmada.": "Your reservation has been registered successfully. You will receive an email when it is confirmed.",
+    "[oceaNakama] Nueva reserva — :curso": "[oceaNakama] New reservation — :curso",
+    "Nueva reserva recibida": "New reservation received",
+    "Se ha recibido una nueva reserva con los siguientes datos:": "A new reservation has been received with the following details:",
+    "Plazas restantes": "Remaining spots",
+    "Ver reserva en admin": "View reservation in admin"
 }

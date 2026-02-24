@@ -433,5 +433,15 @@
     "Ver todas las noticias": "Voir toutes les nouvelles",
     "Borrador": "Brouillon",
     "Archivado": "Archivé",
-    "Síguenos": "Suivez-nous"
+    "Síguenos": "Suivez-nous",
+    "Pendiente de confirmación": "En attente de confirmation",
+    "Ya tienes una reserva activa para este curso.": "Vous avez déjà une réservation active pour ce cours.",
+    "Este curso no está disponible para reservas.": "Ce cours n'est pas disponible pour les réservations.",
+    "Lo sentimos, no quedan plazas disponibles.": "Désolé, il n'y a plus de places disponibles.",
+    "Tu reserva se ha registrado correctamente. Recibirás un email cuando sea confirmada.": "Votre réservation a été enregistrée avec succès. Vous recevrez un e-mail lorsqu'elle sera confirmée.",
+    "[oceaNakama] Nueva reserva — :curso": "[oceaNakama] Nouvelle réservation — :curso",
+    "Nueva reserva recibida": "Nouvelle réservation reçue",
+    "Se ha recibido una nueva reserva con los siguientes datos:": "Une nouvelle réservation a été reçue avec les informations suivantes :",
+    "Plazas restantes": "Places restantes",
+    "Ver reserva en admin": "Voir la réservation dans l'admin"
 }

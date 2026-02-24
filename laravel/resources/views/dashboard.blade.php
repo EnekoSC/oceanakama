@@ -68,6 +68,7 @@
                                             </h3>
                                             @php
                                                 $badgeClasses = match($reserva->estado) {
+                                                    \App\Enums\EstadoReserva::Pendiente => 'bg-blue-100 text-blue-800',
                                                     \App\Enums\EstadoReserva::Confirmada => 'bg-green-100 text-green-800',
                                                     \App\Enums\EstadoReserva::PendientePago => 'bg-yellow-100 text-yellow-800',
                                                     \App\Enums\EstadoReserva::Cancelada => 'bg-red-100 text-red-800',
