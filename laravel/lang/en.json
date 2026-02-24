@@ -443,5 +443,9 @@
     "Nueva reserva recibida": "New reservation received",
     "Se ha recibido una nueva reserva con los siguientes datos:": "A new reservation has been received with the following details:",
     "Plazas restantes": "Remaining spots",
-    "Ver reserva en admin": "View reservation in admin"
+    "Ver reserva en admin": "View reservation in admin",
+    "Confirmar reserva": "Confirm reservation",
+    "¿Quieres reservar una plaza en el curso :curso?": "Do you want to book a spot in the course :curso?",
+    "Cancelar": "Cancel",
+    "Confirmar": "Confirm"
 }

@@ -138,13 +138,48 @@
                         </div>
                     @elseif($curso->tieneDisponibilidad() && $curso->estado === \App\Enums\EstadoCurso::Proximo)
                         @auth
-                            <form action="{{ lroute('cursos.reservar', $curso->slug) }}" method="POST">
-                                @csrf
-                                <button type="submit"
+                            <div x-data="{ open: false }">
+                                <button @click="open = true"
                                    class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition cursor-pointer">
                                     {{ __('Reservar plaza') }}
                                 </button>
-                            </form>
+
+                                {{-- Modal de confirmación --}}
+                                <template x-if="open">
+                                    <div class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="open = false" @keydown.escape.window="open = false">
+                                    </div>
+                                </template>
+                                <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-4" class="fixed inset-0 z-[70] flex items-center justify-center p-4" style="display: none;">
+                                    <div @click.stop class="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 relative">
+                                        <button @click="open = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                        </button>
+
+                                        <div class="text-center mb-6">
+                                            <svg class="mx-auto h-12 w-12 text-cyan-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                            <h3 class="text-lg font-bold text-gray-900">{{ __('Confirmar reserva') }}</h3>
+                                        </div>
+
+                                        <p class="text-sm text-gray-600 text-center mb-6">
+                                            {{ __('¿Quieres reservar una plaza en el curso :curso?', ['curso' => $curso->nombre]) }}
+                                        </p>
+
+                                        <div class="flex gap-3">
+                                            <button @click="open = false"
+                                                class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition cursor-pointer">
+                                                {{ __('Cancelar') }}
+                                            </button>
+                                            <form action="{{ lroute('cursos.reservar', $curso->slug) }}" method="POST" class="flex-1">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="w-full px-4 py-2.5 bg-cyan-700 text-white font-medium rounded-lg hover:bg-cyan-800 transition cursor-pointer">
+                                                    {{ __('Confirmar') }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @else
                             <button x-data @click="$dispatch('open-login-modal')"
                                class="block w-full text-center px-6 py-3 bg-cyan-700 text-white font-semibold rounded-lg hover:bg-cyan-800 transition cursor-pointer">

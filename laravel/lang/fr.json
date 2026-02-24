@@ -443,5 +443,9 @@
     "Nueva reserva recibida": "Nouvelle réservation reçue",
     "Se ha recibido una nueva reserva con los siguientes datos:": "Une nouvelle réservation a été reçue avec les informations suivantes :",
     "Plazas restantes": "Places restantes",
-    "Ver reserva en admin": "Voir la réservation dans l'admin"
+    "Ver reserva en admin": "Voir la réservation dans l'admin",
+    "Confirmar reserva": "Confirmer la réservation",
+    "¿Quieres reservar una plaza en el curso :curso?": "Voulez-vous réserver une place dans le cours :curso ?",
+    "Cancelar": "Annuler",
+    "Confirmar": "Confirmer"
 }
