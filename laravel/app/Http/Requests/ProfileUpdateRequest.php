@@ -25,6 +25,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'certificacion' => ['nullable', 'string', 'max:255'],
+            'num_inmersiones' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

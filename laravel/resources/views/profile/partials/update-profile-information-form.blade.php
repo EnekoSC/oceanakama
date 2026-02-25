@@ -47,6 +47,20 @@
             @endif
         </div>
 
+        <div>
+            <label for="certificacion" class="block text-sm font-medium text-gray-700">{{ __('Certificación de buceo') }}</label>
+            <input id="certificacion" name="certificacion" type="text" value="{{ old('certificacion', $user->certificacion) }}" autocomplete="off"
+                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+            <x-input-error class="mt-2" :messages="$errors->get('certificacion')" />
+        </div>
+
+        <div>
+            <label for="num_inmersiones" class="block text-sm font-medium text-gray-700">{{ __('Número de inmersiones') }}</label>
+            <input id="num_inmersiones" name="num_inmersiones" type="number" min="0" value="{{ old('num_inmersiones', $user->num_inmersiones) }}" autocomplete="off"
+                   class="block mt-1 w-full rounded-lg border-gray-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm">
+            <x-input-error class="mt-2" :messages="$errors->get('num_inmersiones')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <button type="submit" class="px-5 py-2.5 bg-cyan-700 text-white text-sm font-medium rounded-lg hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition">
                 {{ __('Save') }}
